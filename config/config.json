@@ -1,6 +1,6 @@
 {
-    "name": "StickerBOT",
-    "author": "DrelezTM",
-    "timezone": "Asia/Jakarta",
-    "groups": true
+    "name": "BOT",
+    "author": "yMaatheus",
+    "timezone": "America/Sao_Paulo",
+    "groups": false
 }
