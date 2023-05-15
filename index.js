@@ -41,8 +41,6 @@ client.on('message', async (message) => {
     if (chat.isGroup) return;
   }
 
-  // console.log(message);
-
   if (!message.hasMedia) return;
   if (!message.body.toLowerCase().includes('/bot')) return;
 
@@ -54,10 +52,6 @@ client.on('message', async (message) => {
   if (message.type == "sticker") {
     await uploadMedia(client, message);
   }
-
-  // client.getChatById(message.id.remote).then(async (chat) => {
-  //   await chat.sendSeen();
-  // });
 });
 
 async function uploadSticker(client, message) {
