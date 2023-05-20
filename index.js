@@ -24,16 +24,16 @@ client.on('ready', () => {
   const consoleText = './config/console.txt';
   fs.readFile(consoleText, 'utf-8', (err, data) => {
     if (err) {
-      console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] Console Text not found!`.yellow);
-      console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${config.name} is Already!`.green);
+      console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] Console Text not found!`);
+      console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${config.name} is Already!`);
     } else {
-      console.log(data.green);
-      console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${config.name} is Already!`.green);
+      console.log(data);
+      console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${config.name} is Already!`);
     }
   });
 });
 
-client.on('message', async (message) => {
+client.on('message_create', async (message) => {
   if (message.broadcast) return;
 
   if (!config.groups) {
@@ -43,15 +43,15 @@ client.on('message', async (message) => {
 
   if (!message.hasMedia) return;
   if (!message.body.toLowerCase().includes('/bot')) return;
-
+  
   const stickerTypes = ['image', 'video', 'gif'];
   if (stickerTypes.includes(message.type)) {
     await uploadSticker(client, message);
   }
 
-  if (message.type == "sticker") {
-    await uploadMedia(client, message);
-  }
+  // if (message.type == "sticker") {
+  //   await uploadMedia(client, message);
+  // }
 });
 
 async function uploadSticker(client, message) {
@@ -70,16 +70,16 @@ async function uploadSticker(client, message) {
   }
 }
 
-async function uploadMedia(client, message) {
-  client.sendMessage(message.from, "*[⏳]* Loading..");
-  try {
-    const media = await message.downloadMedia();
-    client.sendMessage(message.from, media).then(() => {
-      client.sendMessage(message.from, "*[✅]* Successfully!");
-    });
-  } catch {
-    client.sendMessage(message.from, "*[❎]* Failed!");
-  }
-}
+// async function uploadMedia(client, message) {
+//   client.sendMessage(message.from, "*[⏳]* Loading..");
+//   try {
+//     const media = await message.downloadMedia();
+//     client.sendMessage(message.from, media).then(() => {
+//       client.sendMessage(message.from, "*[✅]* Successfully!");
+//     });
+//   } catch {
+//     client.sendMessage(message.from, "*[❎]* Failed!");
+//   }
+// }
 
 client.initialize();
